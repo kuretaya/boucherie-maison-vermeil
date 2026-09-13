@@ -2,7 +2,7 @@
 // Clé Web3Forms : à créer gratuitement sur https://web3forms.com avec l'adresse
 // qui doit RECEVOIR les commandes. Tant qu'elle n'est pas remplacée, le site
 // fonctionne en mode démo (aucun e-mail envoyé).
-const WEB3FORMS_KEY = 'VOTRE_CLE_WEB3FORMS';
+const WEB3FORMS_KEY = 'bd8a0210-dcaa-4a25-972f-ceededd7e08c';
 const SHOP_NAME = 'Maison Vermeil';
 const SHOP_PHONE = '01 00 00 00 00';
 
