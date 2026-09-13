@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maison Vermeil — Boucherie artisanale</title>
+  <meta name="description" content="Maison Vermeil, boucherie artisanale : viandes maturées, élevages locaux et découpe à la demande. Commandez en ligne, retirez en boutique.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <noscript><style>.loader{display:none}.hero h1 .line>span,.hero-in{transform:none!important;opacity:1!important}</style></noscript>
+</head>
+<body>
+
+  <!-- ===== ÉCRAN DE CHARGEMENT ===== -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <span class="loader-logo">Maison <em>Vermeil</em></span>
+      <span class="loader-bar"></span>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header class="nav" id="nav">
+    <a href="#accueil" class="logo">Maison <span>Vermeil</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#maison">La maison</a>
+      <a href="#produits">Nos viandes</a>
+      <a href="#savoir-faire">Savoir-faire</a>
+      <a href="#commander">Click & Collect</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="cart-btn" id="cartBtn" aria-label="Ouvrir le panier">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO : diaporama animé ===== -->
+  <section class="hero" id="accueil">
+    <div class="hero-slides">
+      <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=1920&q=80')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=1920&q=80')"></div>
+      <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1588168333986-5078d3ae3976?auto=format&fit=crop&w=1920&q=80')"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="eyebrow hero-in">Boucherie artisanale · Depuis 1972</p>
+      <h1>
+        <span class="line"><span>La viande,</span></span>
+        <span class="line"><span><em>dans les règles de l'art</em></span></span>
+      </h1>
+      <p class="hero-text hero-in">Races sélectionnées, maturation en cave et découpe à la demande.<br>Commandez en ligne, retirez en boutique.</p>
+      <div class="hero-buttons hero-in">
+        <a href="#produits" class="btn">Commander en ligne</a>
+        <a href="#contact" class="btn btn-ghost">Horaires & adresse</a>
+      </div>
+    </div>
+
+    <!-- Badge rotatif -->
+    <a href="#produits" class="hero-badge hero-in" aria-label="Commander en ligne">
+      <svg viewBox="0 0 200 200">
+        <defs><path id="circlePath" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+        <text><textPath href="#circlePath" textLength="488">COMMANDE EN LIGNE • RETRAIT EN BOUTIQUE •</textPath></text>
+      </svg>
+      <span class="hero-badge-center">↓</span>
+    </a>
+
+    <div class="hero-dots" id="heroDots">
+      <button class="active" aria-label="Photo 1"></button>
+      <button aria-label="Photo 2"></button>
+      <button aria-label="Photo 3"></button>
+    </div>
+    <a href="#maison" class="scroll-hint" aria-label="Défiler"><span></span></a>
+  </section>
+
+  <!-- ===== LA MAISON ===== -->
+  <section class="section story" id="maison">
+    <div class="container story-grid">
+      <div class="story-images">
+        <div class="img-frame img-main reveal-left">
+          <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=900&q=80" alt="Découpe d'une pièce de bœuf" data-parallax="0.08">
+        </div>
+        <div class="img-frame img-small reveal-up delay-2">
+          <img src="https://images.unsplash.com/photo-1613454320437-0c228c8b1723?auto=format&fit=crop&w=600&q=80" alt="Pièce de bœuf crue et épices" data-parallax="-0.06">
+        </div>
+        <div class="badge-round reveal delay-3">
+          <strong>50</strong><span>ans de<br>métier</span>
+        </div>
+      </div>
+      <div class="story-text">
+        <p class="eyebrow reveal">La maison</p>
+        <h2 class="reveal delay-1">Le goût vrai,<br><em>de l'éleveur à l'étal</em></h2>
+        <p class="reveal delay-2">Depuis trois générations, nous choisissons nos bêtes directement chez des éleveurs que nous connaissons. Pas d'intermédiaire : nous savons d'où vient chaque pièce et comment l'animal a été élevé.</p>
+        <p class="reveal delay-2">Nos viandes de bœuf mûrissent jusqu'à 28 jours dans notre cave de maturation. Le résultat : une viande plus tendre, plus goûteuse, découpée devant vous selon vos envies.</p>
+        <div class="stats reveal delay-3">
+          <div><strong class="counter" data-target="28">0</strong><span>jours de maturation</span></div>
+          <div><strong class="counter" data-target="60">0</strong><span>km max. des élevages</span></div>
+          <div><strong class="counter" data-target="100">0</strong><span>% découpé sur place</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRODUITS (générés par script.js) ===== -->
+  <section class="section products" id="produits">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow reveal">Nos viandes</p>
+        <h2 class="reveal delay-1">Composez <em>votre commande</em></h2>
+        <p class="reveal delay-2">Choisissez le poids, ajoutez au panier, retirez en boutique dès demain.</p>
+      </div>
+
+      <div class="filters reveal delay-2" id="filters">
+        <button class="active" data-filter="all">Tout</button>
+        <button data-filter="boeuf">Bœuf</button>
+        <button data-filter="agneau">Agneau</button>
+        <button data-filter="porc">Porc</button>
+        <button data-filter="volaille">Volaille</button>
+        <button data-filter="colis">Colis & apéro</button>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+
+      <p class="products-note reveal">Prix au kilo indicatifs : le montant final est ajusté à la pesée. Paiement en boutique lors du retrait.</p>
+    </div>
+  </section>
+
+  <!-- ===== SAVOIR-FAIRE : bande photo défilante ===== -->
+  <section class="section craft" id="savoir-faire">
+    <div class="container section-head">
+      <p class="eyebrow reveal">Savoir-faire</p>
+      <h2 class="reveal delay-1">Un métier <em>de patience</em></h2>
+    </div>
+
+    <div class="marquee">
+      <div class="marquee-track">
+        <img src="https://images.unsplash.com/photo-1546964124-0cce460f38ef?auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5a?auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1592894869086-f828b161e90a?auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1628268909376-e8c44bb3153f?auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=600&q=80" alt="">
+        <img src="https://images.unsplash.com/photo-1624174503860-478619028ab3?auto=format&fit=crop&w=600&q=80" alt="">
+      </div>
+    </div>
+
+    <div class="container steps">
+      <div class="step reveal-up">
+        <span class="step-num">01</span>
+        <h3>La sélection</h3>
+        <p>Des races à viande choisies sur pied, chez des éleveurs de la région.</p>
+      </div>
+      <div class="step reveal-up delay-1">
+        <span class="step-num">02</span>
+        <h3>La maturation</h3>
+        <p>Jusqu'à 28 jours en cave ventilée pour développer tendreté et arômes.</p>
+      </div>
+      <div class="step reveal-up delay-2">
+        <span class="step-num">03</span>
+        <h3>La découpe</h3>
+        <p>Chaque pièce est parée et découpée à la main, à l'épaisseur que vous voulez.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BANDEAU PARALLAX ===== -->
+  <section class="parallax-band" style="background-image:url('https://images.unsplash.com/photo-1592894869086-f828b161e90a?auto=format&fit=crop&w=1920&q=80')">
+    <div class="parallax-overlay"></div>
+    <blockquote class="reveal">
+      « Une bonne viande, c'est d'abord un bon éleveur. »
+      <cite>— Le maître boucher</cite>
+    </blockquote>
+  </section>
+
+  <!-- ===== CLICK & COLLECT ===== -->
+  <section class="section order-steps" id="commander">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow reveal">Click & Collect</p>
+        <h2 class="reveal delay-1">Commander, <em>c'est simple</em></h2>
+      </div>
+      <div class="order-grid">
+        <div class="order-line reveal"></div>
+        <div class="order-step reveal-up">
+          <span class="order-num">1</span>
+          <h3>Composez votre panier</h3>
+          <p>Choisissez vos pièces et le poids souhaité.</p>
+        </div>
+        <div class="order-step reveal-up delay-1">
+          <span class="order-num">2</span>
+          <h3>Choisissez un créneau</h3>
+          <p>Indiquez le jour et l'heure de retrait, dès le lendemain.</p>
+        </div>
+        <div class="order-step reveal-up delay-2">
+          <span class="order-num">3</span>
+          <h3>Retirez & payez</h3>
+          <p>Votre commande est prête, pesée et emballée à votre arrivée.</p>
+        </div>
+      </div>
+      <div class="order-cta reveal delay-2">
+        <a href="#produits" class="btn">Je commande</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== AVIS ===== -->
+  <section class="section reviews" id="avis">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow reveal">Avis clients</p>
+        <h2 class="reveal delay-1">Ils en parlent <em>mieux que nous</em></h2>
+      </div>
+      <div class="review-grid">
+        <div class="review reveal-up">
+          <div class="stars">★★★★★</div>
+          <p>« La côte de bœuf maturée est incroyable. Et commander la veille pour le samedi, c'est tellement pratique. »</p>
+          <span class="author">Julien D.</span>
+        </div>
+        <div class="review reveal-up delay-1">
+          <div class="stars">★★★★★</div>
+          <p>« Des conseils de cuisson toujours précis et une viande d'une qualité rare. On ne va plus ailleurs. »</p>
+          <span class="author">Nadia B.</span>
+        </div>
+        <div class="review reveal-up delay-2">
+          <div class="stars">★★★★★</div>
+          <p>« Le colis barbecue a régalé tout le monde. Commande prête à l'heure, rien à redire. »</p>
+          <span class="author">Marc T.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section contact" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <p class="eyebrow reveal">Nous trouver</p>
+        <h2 class="reveal delay-1">Passez nous <em>voir</em></h2>
+        <ul class="info-list reveal delay-2">
+          <li><span>Adresse</span>8 place du Marché, 75011 Paris</li>
+          <li><span>Téléphone</span><a href="tel:+33100000000">01 00 00 00 00</a></li>
+          <li><span>E-mail</span><a href="mailto:commande@maisonvermeil.fr">commande@maisonvermeil.fr</a></li>
+        </ul>
+        <table class="hours reveal delay-3">
+          <tr><td>Lundi</td><td>Fermé</td></tr>
+          <tr><td>Mardi – Samedi</td><td>8h00 – 19h30</td></tr>
+          <tr><td>Dimanche</td><td>8h00 – 13h00</td></tr>
+        </table>
+        <p class="open-status reveal delay-3" id="openStatus"></p>
+      </div>
+      <div class="contact-img img-frame reveal-left">
+        <img src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?auto=format&fit=crop&w=900&q=80" alt="Viande grillée et pommes de terre" data-parallax="0.06">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="#accueil" class="logo">Maison <span>Vermeil</span></a>
+      <p>© <span id="year"></span> Maison Vermeil — Boucherie artisanale</p>
+      <a href="#accueil" class="to-top">Haut de page ↑</a>
+    </div>
+  </footer>
+
+  <!-- ===== PANIER (tiroir latéral) ===== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart" id="cart" aria-hidden="true" aria-label="Panier">
+    <div class="cart-head">
+      <h3 id="cartTitle">Votre commande</h3>
+      <button class="cart-close" id="cartClose" aria-label="Fermer le panier">×</button>
+    </div>
+
+    <!-- Étape 1 : panier -->
+    <div class="cart-step active" data-step="cart">
+      <div class="cart-empty" id="cartEmpty">
+        <span class="cart-empty-icon">🥩</span>
+        <p>Votre panier est vide.</p>
+        <a href="#produits" class="btn btn-small" data-close>Voir nos viandes</a>
+      </div>
+      <ul class="cart-items" id="cartItems"></ul>
+      <div class="cart-foot" id="cartFoot">
+        <div class="cart-total"><span>Total estimé</span><strong id="cartTotal">0,00 €</strong></div>
+        <p class="cart-note">Montant ajusté à la pesée · Paiement au retrait</p>
+        <button class="btn btn-full" id="toCheckout">Valider ma commande</button>
+      </div>
+    </div>
+
+    <!-- Étape 2 : coordonnées + retrait -->
+    <div class="cart-step" data-step="checkout">
+      <button class="back-link" id="backToCart">← Retour au panier</button>
+      <form id="orderForm" novalidate>
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+        <div class="field">
+          <label for="nom">Nom et prénom</label>
+          <input type="text" id="nom" name="nom" required autocomplete="name">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="telephone">Téléphone</label>
+            <input type="tel" id="telephone" name="telephone" required pattern="[0-9 +.\-]{10,}" autocomplete="tel">
+          </div>
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="date">Jour de retrait</label>
+            <input type="date" id="date" name="date" required>
+          </div>
+          <div class="field">
+            <label for="creneau">Créneau</label>
+            <select id="creneau" name="creneau" required disabled>
+              <option value="">Choisir un jour</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="remarques">Remarques <small>(découpe, épaisseur…)</small></label>
+          <textarea id="remarques" name="remarques" rows="3"></textarea>
+        </div>
+        <div class="cart-total"><span>Total estimé</span><strong id="checkoutTotal">0,00 €</strong></div>
+        <button type="submit" class="btn btn-full" id="submitOrder"><span>Envoyer ma commande</span></button>
+        <p class="form-error" id="formError" role="alert"></p>
+      </form>
+    </div>
+
+    <!-- Étape 3 : confirmation -->
+    <div class="cart-step" data-step="done">
+      <div class="done">
+        <svg class="check" viewBox="0 0 80 80"><circle cx="40" cy="40" r="36"/><path d="M24 41l11 11 22-24"/></svg>
+        <h3>Merci pour votre commande !</h3>
+        <p>Commande n° <strong id="orderNumber"></strong></p>
+        <p id="orderPickup"></p>
+        <p class="done-small">Nous vous appellerons si une pièce venait à manquer.</p>
+        <p class="demo-note" id="demoNote" hidden>Mode démo : aucun e-mail envoyé (clé Web3Forms non renseignée).</p>
+        <button class="btn btn-small" data-close>Fermer</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
