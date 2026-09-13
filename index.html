@@ -32,6 +32,9 @@
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-actions">
+      <button class="cart-btn account-btn" id="accountBtn" aria-label="Se connecter">
+        <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+      </button>
       <button class="cart-btn" id="cartBtn" aria-label="Ouvrir le panier">
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
         <span class="cart-count" id="cartCount">0</span>
@@ -297,18 +300,19 @@
       <button class="back-link" id="backToCart">← Retour au panier</button>
       <form id="orderForm" novalidate>
         <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
+        <p class="checkout-hint" id="checkoutHint">Vous avez un compte ? <button type="button" class="link-btn" id="checkoutLogin">Connectez-vous</button> pour retrouver vos commandes.</p>
         <div class="field">
           <label for="nom">Nom et prénom</label>
-          <input type="text" id="nom" name="nom" required autocomplete="name">
+          <input type="text" id="nom" name="nom" required maxlength="100" autocomplete="name">
         </div>
         <div class="field-row">
           <div class="field">
             <label for="telephone">Téléphone</label>
-            <input type="tel" id="telephone" name="telephone" required pattern="[0-9 +.\-]{10,}" autocomplete="tel">
+            <input type="tel" id="telephone" name="telephone" required pattern="[0-9 +.\-]{10,20}" maxlength="20" autocomplete="tel">
           </div>
           <div class="field">
             <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" required autocomplete="email">
+            <input type="email" id="email" name="email" required maxlength="150" autocomplete="email">
           </div>
         </div>
         <div class="field-row">
@@ -325,7 +329,7 @@
         </div>
         <div class="field">
           <label for="remarques">Remarques <small>(découpe, épaisseur…)</small></label>
-          <textarea id="remarques" name="remarques" rows="3"></textarea>
+          <textarea id="remarques" name="remarques" rows="3" maxlength="1000"></textarea>
         </div>
         <div class="cart-total"><span>Total estimé</span><strong id="checkoutTotal">0,00 €</strong></div>
         <button type="submit" class="btn btn-full" id="submitOrder"><span>Envoyer ma commande</span></button>
@@ -347,8 +351,115 @@
     </div>
   </aside>
 
+  <!-- ===== ESPACE CLIENT (fenêtre) ===== -->
+  <div class="modal-overlay" id="accountOverlay"></div>
+  <div class="modal" id="account" role="dialog" aria-modal="true" aria-label="Espace client" aria-hidden="true">
+    <button class="cart-close modal-close" id="accountClose" aria-label="Fermer">×</button>
+
+    <!-- Connexion -->
+    <div class="modal-view" data-view="login">
+      <h3>Espace client</h3>
+      <div class="tabs">
+        <button type="button" class="active">Connexion</button>
+        <button type="button" data-go="signup">Inscription</button>
+      </div>
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="loginId">Pseudo ou e-mail</label>
+          <input type="text" id="loginId" required autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="loginPassword">Mot de passe</label>
+          <input type="password" id="loginPassword" required autocomplete="current-password">
+        </div>
+        <p class="form-link"><button type="button" class="link-btn" data-go="forgot">Mot de passe oublié ?</button></p>
+        <button type="submit" class="btn btn-full"><span>Se connecter</span></button>
+        <p class="form-error" role="alert"></p>
+      </form>
+    </div>
+
+    <!-- Inscription -->
+    <div class="modal-view" data-view="signup">
+      <h3>Espace client</h3>
+      <div class="tabs">
+        <button type="button" data-go="login">Connexion</button>
+        <button type="button" class="active">Inscription</button>
+      </div>
+      <form id="signupForm" novalidate>
+        <div class="field">
+          <label for="signupPseudo">Pseudo <small>(3 à 20 caractères)</small></label>
+          <input type="text" id="signupPseudo" required pattern="[A-Za-z0-9_.\-]{3,20}" maxlength="20" autocomplete="username" title="Lettres, chiffres, point, tiret ou underscore">
+        </div>
+        <div class="field">
+          <label for="signupEmail">E-mail</label>
+          <input type="email" id="signupEmail" required maxlength="150" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="signupPhone">Téléphone</label>
+          <input type="tel" id="signupPhone" required pattern="[0-9 +.\-]{10,20}" maxlength="20" autocomplete="tel">
+        </div>
+        <div class="field">
+          <label for="signupPassword">Mot de passe <small>(8 caractères min.)</small></label>
+          <input type="password" id="signupPassword" required minlength="8" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn btn-full"><span>Créer mon compte</span></button>
+        <p class="form-error" role="alert"></p>
+        <p class="form-success" role="status"></p>
+      </form>
+    </div>
+
+    <!-- Mot de passe oublié -->
+    <div class="modal-view" data-view="forgot">
+      <h3>Mot de passe oublié</h3>
+      <p class="modal-text">Entrez l'e-mail de votre compte : nous vous envoyons un lien pour choisir un nouveau mot de passe.</p>
+      <form id="forgotForm" novalidate>
+        <div class="field">
+          <label for="forgotEmail">E-mail</label>
+          <input type="email" id="forgotEmail" required autocomplete="email">
+        </div>
+        <button type="submit" class="btn btn-full"><span>Envoyer le lien</span></button>
+        <p class="form-error" role="alert"></p>
+        <p class="form-success" role="status"></p>
+      </form>
+      <p class="form-link form-link-center"><button type="button" class="link-btn" data-go="login">← Retour à la connexion</button></p>
+    </div>
+
+    <!-- Nouveau mot de passe (après le lien reçu par e-mail) -->
+    <div class="modal-view" data-view="reset">
+      <h3>Nouveau mot de passe</h3>
+      <form id="resetForm" novalidate>
+        <div class="field">
+          <label for="resetPassword">Mot de passe <small>(8 caractères min.)</small></label>
+          <input type="password" id="resetPassword" required minlength="8" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn btn-full"><span>Enregistrer</span></button>
+        <p class="form-error" role="alert"></p>
+        <p class="form-success" role="status"></p>
+      </form>
+    </div>
+
+    <!-- Profil + historique -->
+    <div class="modal-view" data-view="profile">
+      <p class="eyebrow">Mon compte</p>
+      <h3>Bonjour <em id="profilePseudo"></em></h3>
+      <ul class="profile-info">
+        <li><span>E-mail</span><b id="profileEmail"></b></li>
+        <li><span>Téléphone</span><b id="profilePhone"></b></li>
+      </ul>
+      <h4>Mes commandes</h4>
+      <div class="order-history" id="orderHistory"></div>
+      <div class="profile-actions">
+        <a href="admin.html" class="btn btn-small" id="adminLink" hidden>Espace admin</a>
+        <button type="button" class="btn btn-small btn-outline" id="logoutBtn">Se déconnecter</button>
+      </div>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="account.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

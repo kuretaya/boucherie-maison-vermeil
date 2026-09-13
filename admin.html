@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — Maison Vermeil</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+
+  <!-- ===== BARRE DU HAUT ===== -->
+  <header class="admin-bar">
+    <a href="index.html" class="logo">Maison <span>Vermeil</span></a>
+    <span class="admin-tag">Espace admin</span>
+    <div class="admin-bar-actions">
+      <a href="index.html" class="admin-link">← Voir le site</a>
+      <button class="btn btn-small btn-outline-light" id="adminLogout" hidden>Se déconnecter</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+
+    <!-- Configuration manquante -->
+    <section class="admin-card admin-auth" id="viewSetup" hidden>
+      <h1>Configuration requise</h1>
+      <p>Renseignez l'URL et la clé Supabase dans <code>config.js</code>, puis rechargez la page.</p>
+    </section>
+
+    <!-- Connexion -->
+    <section class="admin-card admin-auth" id="viewLogin" hidden>
+      <p class="eyebrow">Accès réservé</p>
+      <h1>Connexion admin</h1>
+      <form id="adminLoginForm" novalidate>
+        <div class="field">
+          <label for="adminId">Pseudo ou e-mail</label>
+          <input type="text" id="adminId" required autocomplete="username">
+        </div>
+        <div class="field">
+          <label for="adminPassword">Mot de passe</label>
+          <input type="password" id="adminPassword" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-full"><span>Se connecter</span></button>
+        <p class="form-error" id="adminLoginError" role="alert"></p>
+      </form>
+    </section>
+
+    <!-- Compte sans droits admin -->
+    <section class="admin-card admin-auth" id="viewDenied" hidden>
+      <h1>Accès refusé</h1>
+      <p>Ce compte n'a pas les droits administrateur.</p>
+      <button class="btn btn-small" id="deniedLogout">Changer de compte</button>
+    </section>
+
+    <!-- Tableau de bord -->
+    <section id="viewDashboard" hidden>
+      <div class="admin-head">
+        <div>
+          <p class="eyebrow">Tableau de bord</p>
+          <h1 id="dashTitle">Commandes</h1>
+        </div>
+        <div class="view-switch">
+          <button class="active" data-mode="day">Par jour</button>
+          <button data-mode="all">Toutes les commandes</button>
+        </div>
+      </div>
+
+      <div class="admin-toolbar">
+        <div class="day-picker" id="dayPicker">
+          <button id="prevDay" aria-label="Jour précédent">‹</button>
+          <input type="date" id="dayInput" aria-label="Jour de retrait">
+          <button id="nextDay" aria-label="Jour suivant">›</button>
+          <button class="chip" id="todayBtn">Aujourd'hui</button>
+        </div>
+        <input type="search" id="searchInput" placeholder="Rechercher : nom, n° de commande, téléphone…" hidden>
+        <div class="toolbar-actions">
+          <button class="chip" id="refreshBtn">↻ Actualiser</button>
+          <button class="chip" id="printBtn">Imprimer</button>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><span>Commandes</span><strong id="statOrders">0</strong></div>
+        <div class="stat"><span>Total estimé</span><strong id="statTotal">0,00 €</strong></div>
+        <div class="stat"><span>Viande au poids</span><strong id="statWeight">0 g</strong></div>
+      </div>
+
+      <!-- Résumé de la viande à préparer -->
+      <section class="admin-card" id="summaryCard">
+        <h2>Viande à préparer <em id="summaryDate"></em></h2>
+        <div class="table-wrap" id="summaryWrap">
+          <table class="admin-table">
+            <thead>
+              <tr><th>Produit</th><th>Quantité totale</th><th>Détail</th><th>Commandes</th></tr>
+            </thead>
+            <tbody id="summaryBody"></tbody>
+          </table>
+        </div>
+        <p class="muted" id="summaryEmpty" hidden>Aucune viande à préparer ce jour-là.</p>
+      </section>
+
+      <!-- Liste des commandes -->
+      <section class="admin-card">
+        <h2 id="ordersTitle">Commandes par créneau</h2>
+        <div id="ordersList"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

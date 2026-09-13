@@ -232,7 +232,10 @@ document.getElementById('cartClose').addEventListener('click', closeCart);
 cartEl.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeCart));
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && cartEl.classList.contains('open')) closeCart(); });
 
-document.getElementById('toCheckout').addEventListener('click', () => showStep('checkout'));
+document.getElementById('toCheckout').addEventListener('click', () => {
+  prefillCheckout();
+  showStep('checkout');
+});
 document.getElementById('backToCart').addEventListener('click', () => showStep('cart'));
 
 // Animation : la photo du produit "vole" jusqu'au panier
@@ -320,6 +323,15 @@ function updateSlots() {
 }
 dateInput.addEventListener('change', updateSlots);
 
+// Client connecté : e-mail et téléphone pré-remplis
+function prefillCheckout() {
+  const profile = Account.profile;
+  if (!profile) return;
+  if (!form.email.value) form.email.value = profile.email;
+  if (!form.telephone.value) form.telephone.value = profile.phone;
+}
+Account.onChange(() => { if (currentStep() === 'checkout') prefillCheckout(); });
+
 function makeOrderId() {
   const d = new Date();
   const stamp = `${String(d.getFullYear()).slice(2)}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
@@ -351,31 +363,65 @@ form.addEventListener('submit', async e => {
   submitBtn.classList.add('loading');
 
   try {
-    const demo = WEB3FORMS_KEY.startsWith('VOTRE');
+    const mailReady = !WEB3FORMS_KEY.startsWith('VOTRE');
+    const demo = !mailReady && !dbConfigured;
+    let saved = false;
+    let mailed = false;
+
+    // 1. Enregistrement dans Supabase (historique client + espace admin)
+    if (dbConfigured) {
+      const { error } = await db.from('orders').insert({
+        order_number: orderId,
+        user_id: Account.user?.id ?? null,
+        customer_name: data.nom,
+        email: data.email,
+        phone: data.telephone,
+        pickup_date: data.date,
+        pickup_slot: data.creneau,
+        notes: data.remarques || null,
+        items: cart.map(l => {
+          const p = getProduct(l.id);
+          return { id: p.id, name: p.name, unit: p.unit, g: l.g, qty: l.qty, price: unitPrice(p, l.g) };
+        }),
+        total: cartTotalValue()
+      });
+      if (error) console.error(error);
+      else saved = true;
+    }
+
+    // 2. E-mail de notification (Web3Forms)
+    if (mailReady) {
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_KEY,
+            subject: `Nouvelle commande ${orderId} — ${data.nom}`,
+            from_name: `Site ${SHOP_NAME}`,
+            name: data.nom,
+            email: data.email,
+            'Téléphone': data.telephone,
+            'N° de commande': orderId,
+            'Retrait': pickup,
+            'Commande': lines,
+            'Total estimé': total,
+            'Remarques': data.remarques || '—'
+          })
+        });
+        const json = await res.json();
+        if (!json.success) throw new Error(json.message);
+        mailed = true;
+      } catch (err) {
+        console.error(err);
+      }
+    }
 
     if (demo) {
       await new Promise(r => setTimeout(r, 1200));
       console.info(`[Mode démo] Commande ${orderId}\n${data.nom} · ${data.telephone} · ${data.email}\nRetrait : ${pickup}\n${lines}\nTotal estimé : ${total}`);
-    } else {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: `Nouvelle commande ${orderId} — ${data.nom}`,
-          from_name: `Site ${SHOP_NAME}`,
-          name: data.nom,
-          email: data.email,
-          'Téléphone': data.telephone,
-          'N° de commande': orderId,
-          'Retrait': pickup,
-          'Commande': lines,
-          'Total estimé': total,
-          'Remarques': data.remarques || '—'
-        })
-      });
-      const json = await res.json();
-      if (!json.success) throw new Error(json.message);
+    } else if (!saved && !mailed) {
+      throw new Error("Commande ni enregistrée ni envoyée par e-mail");
     }
 
     document.getElementById('orderNumber').textContent = orderId;
@@ -388,6 +434,7 @@ form.addEventListener('submit', async e => {
     form.reset();
     updateSlots();
     showStep('done');
+    if (saved) Account.refreshOrders();
   } catch (err) {
     console.error(err);
     formError.textContent = `L'envoi a échoué. Réessayez ou appelez-nous au ${SHOP_PHONE}.`;

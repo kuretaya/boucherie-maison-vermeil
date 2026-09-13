@@ -1,0 +1,120 @@
+/* ===== ESPACE ADMIN (utilise les variables de style.css) ===== */
+body.admin { background: var(--bone); min-height: 100vh; }
+
+.admin-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 5%;
+  background: var(--ink);
+  color: var(--bone);
+}
+.admin-tag {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--brass);
+  border: 1px solid rgba(201, 163, 107, .4);
+  padding: 4px 10px;
+  border-radius: 50px;
+}
+.admin-bar-actions { margin-left: auto; display: flex; align-items: center; gap: 16px; font-size: .88rem; }
+.admin-link { transition: color .3s; }
+.admin-link:hover { color: var(--red-light); }
+.btn-outline-light { background: transparent; border-color: rgba(255, 255, 255, .3); }
+.btn-outline-light:hover { background: var(--bone); color: var(--ink); border-color: var(--bone); box-shadow: none; }
+
+.admin-main { width: min(1180px, 92%); margin: 0 auto; padding: 50px 0 80px; }
+
+.admin-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 30px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 30px rgba(21, 17, 15, .06);
+  animation: stepIn .5s var(--ease);
+}
+.admin-card h2 { font-size: 1.7rem; margin-bottom: 18px; }
+.admin-card h2 em { font-style: italic; font-weight: 500; color: var(--red); }
+.admin-auth { max-width: 440px; margin: 60px auto; }
+.admin-auth h1 { font-size: 2.2rem; margin-bottom: 14px; }
+.admin-auth p:not(.eyebrow):not(.form-error) { color: var(--text-soft); margin-bottom: 20px; }
+.admin-auth code { background: var(--bone-dark); padding: 2px 6px; border-radius: 4px; }
+
+/* En-tête du tableau de bord */
+.admin-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 26px; }
+.admin-head h1 { font-size: clamp(1.9rem, 4vw, 2.8rem); }
+.view-switch { display: flex; background: var(--bone-dark); padding: 4px; border-radius: 50px; }
+.view-switch button { padding: 9px 18px; border-radius: 50px; font-size: .88rem; font-weight: 600; color: var(--text-soft); transition: background .3s, color .3s; }
+.view-switch button.active { background: var(--ink); color: var(--bone); }
+
+/* Barre d'outils */
+.admin-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+.day-picker { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.day-picker > button:not(.chip) { width: 40px; height: 40px; border-radius: 50%; background: var(--white); font-size: 1.3rem; transition: background .3s; }
+.day-picker > button:not(.chip):hover { background: var(--bone-dark); }
+.admin-toolbar input { padding: 10px 14px; border: 1px solid var(--bone-dark); border-radius: 10px; background: var(--white); font: inherit; font-size: .92rem; color: var(--ink); }
+.admin-toolbar input:focus { outline: none; border-color: var(--red); }
+#searchInput { flex: 1; min-width: 220px; max-width: 460px; }
+.toolbar-actions { display: flex; gap: 8px; }
+.chip { padding: 9px 16px; border-radius: 50px; background: var(--white); border: 1px solid var(--bone-dark); font-size: .85rem; font-weight: 600; transition: border-color .3s, color .3s; }
+.chip:hover { border-color: var(--red); color: var(--red); }
+
+/* Chiffres clés */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+.stat { background: var(--ink); color: var(--bone); border-radius: var(--radius); padding: 22px 24px; }
+.stat span { display: block; font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted-dark); font-weight: 700; }
+.stat strong { font-family: var(--serif); font-size: 2.2rem; font-weight: 600; }
+
+/* Tableau résumé viande */
+.table-wrap { overflow-x: auto; }
+.admin-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+.admin-table th { text-align: left; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-soft); padding: 0 12px 10px; border-bottom: 1px solid var(--bone-dark); white-space: nowrap; }
+.admin-table td { padding: 12px; border-bottom: 1px solid var(--bone-dark); vertical-align: top; }
+.admin-table td:first-child { font-weight: 600; }
+.admin-table td strong { color: var(--red); font-size: 1.05rem; white-space: nowrap; }
+.admin-table td:nth-child(3) { color: var(--text-soft); font-size: .85rem; }
+.admin-table th:last-child, .admin-table td:last-child { text-align: center; }
+
+/* Liste des commandes */
+.group-title { display: flex; align-items: center; gap: 10px; font-family: var(--sans); font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--red); margin: 24px 0 10px; }
+.group-title:first-child { margin-top: 0; }
+.group-title span { color: var(--text-soft); }
+.group-title::after { content: ''; flex: 1; height: 1px; background: var(--bone-dark); }
+
+.admin-order { border: 1px solid var(--bone-dark); border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; transition: border-color .3s, box-shadow .3s; }
+.admin-order:hover { border-color: rgba(163, 38, 42, .35); box-shadow: 0 10px 24px rgba(21, 17, 15, .06); }
+.ao-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.ao-name { font-family: var(--serif); font-size: 1.2rem; }
+.ao-num { font-size: .8rem; color: var(--text-soft); }
+.ao-total { margin-left: auto; font-size: 1.05rem; }
+.ao-body { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; margin-top: 10px; font-size: .9rem; }
+.ao-items { list-style: none; }
+.ao-items li { padding: 2px 0; }
+.ao-items em { font-style: normal; color: var(--text-soft); }
+.ao-contact { display: flex; flex-direction: column; gap: 2px; font-size: .85rem; color: var(--text-soft); word-break: break-all; }
+.ao-contact a { color: var(--ink); font-weight: 600; }
+.ao-contact a:hover { color: var(--red); }
+.ao-notes { grid-column: 1 / -1; background: var(--bone); border-radius: 8px; padding: 8px 12px; font-size: .85rem; }
+
+@media (max-width: 760px) {
+  .admin-bar { flex-wrap: wrap; }
+  .admin-card { padding: 22px 18px; }
+  .stat-row { grid-template-columns: 1fr; }
+  .ao-body { grid-template-columns: 1fr; }
+  .ao-total { margin-left: 0; }
+}
+
+/* Impression : liste de préparation propre */
+@media print {
+  .admin-bar, .admin-toolbar, .view-switch { display: none !important; }
+  body.admin { background: #fff; }
+  .admin-main { width: 100%; padding: 0; }
+  .admin-card { box-shadow: none; animation: none; padding: 10px 0; }
+  .stat { background: #fff; color: #000; border: 1px solid #ccc; }
+  .admin-order { break-inside: avoid; }
+}
