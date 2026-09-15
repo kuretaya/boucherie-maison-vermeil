@@ -65,6 +65,7 @@
         </div>
         <div class="view-switch">
           <button class="active" data-mode="day">Par jour</button>
+          <button data-mode="period">Préparation</button>
           <button data-mode="all">Toutes les commandes</button>
         </div>
       </div>
@@ -75,6 +76,16 @@
           <input type="date" id="dayInput" aria-label="Jour de retrait">
           <button id="nextDay" aria-label="Jour suivant">›</button>
           <button class="chip" id="todayBtn">Aujourd'hui</button>
+        </div>
+        <div class="range-picker" id="rangePicker" hidden>
+          <label>Du <input type="date" id="fromInput"></label>
+          <label>au <input type="date" id="toInput"></label>
+          <div class="range-presets">
+            <button class="chip" data-range="today">Aujourd'hui</button>
+            <button class="chip" data-range="tomorrow">Demain</button>
+            <button class="chip" data-range="week">7 prochains jours</button>
+            <button class="chip" data-range="month">Ce mois-ci</button>
+          </div>
         </div>
         <input type="search" id="searchInput" placeholder="Rechercher : nom, n° de commande, téléphone…" hidden>
         <div class="toolbar-actions">
@@ -103,6 +114,33 @@
         <p class="muted" id="summaryEmpty" hidden>Aucune viande à préparer ce jour-là.</p>
       </section>
 
+      <!-- Préparation sur une période : totaux par catégorie -->
+      <section class="admin-card" id="periodCard" hidden>
+        <h2>Viande à préparer <em id="periodLabel"></em></h2>
+        <p class="muted" id="periodEmpty" hidden>Aucune commande sur cette période.</p>
+        <div id="periodContent">
+          <div class="cat-grid" id="catGrid"></div>
+
+          <h3 class="sub-title">Détail par produit</h3>
+          <div class="table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr><th>Produit</th><th>Quantité totale</th><th>Détail</th><th>Commandes</th></tr>
+              </thead>
+              <tbody id="periodBody"></tbody>
+            </table>
+          </div>
+
+          <h3 class="sub-title">Répartition par jour</h3>
+          <div class="table-wrap">
+            <table class="admin-table day-table">
+              <thead id="daysHead"></thead>
+              <tbody id="daysBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       <!-- Liste des commandes -->
       <section class="admin-card">
         <h2 id="ordersTitle">Commandes par créneau</h2>
@@ -113,6 +151,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.116.0/dist/umd/supabase.min.js"></script>
   <script src="config.js"></script>
+  <script src="products.js"></script>
   <script src="admin.js"></script>
 </body>
 </html>
